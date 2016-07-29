@@ -59,10 +59,22 @@
     // myImage.addEventListener('click', function () {
     //     return makeCoffee();
     // });
-    $("#coffee_image").click(makeCoffee);
+
+    //This has to come before the event listener. Otherwise, the callback could
+    //be executed before drinksOrdered is defined!
+    var drinksOrdered = {};
 
 
-    function makeCoffee() {
+    // brew = normal coffee
+    $("#coffee_image").on('click', function () {
+                                        makeCoffee("brew");});
+
+    function makeCoffee(drinkType) {
+
+        drinksOrdered[drinkType] = drinksOrdered[drinkType] || 0;
+        drinksOrdered[drinkType]++;
+
+        console.log(drinksOrdered);
 
          // myImage.src = "static/coffee_machine.jpg";
          $("#coffee_image").attr("src", "static/coffee_machine.jpg");
